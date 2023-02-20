@@ -1,8 +1,8 @@
 class Personaje:
     #atributos
     especie="Humano"
-    nombre="MasterChief"
-    altura=2.70
+    nombre="Master Chief"
+    altura= 2.70
     
     #metodos
     def correr(self,status):
