@@ -18,13 +18,13 @@ recargaV = int(input("Ingresa las balas del villano: "))
 Heroe=Personaje(especieH,nombreH,alturaH)
 Villano=Personaje(especieV,nombreV,alturaV)
 
-print("El personaje se llama "+ nombreH)
-print("El personaje pertenece a la especie "+ especieH)
-print("Tiene una altura de  ",alturaH," metros")
+print("El Heroe se llama "+ Heroe.getNombre())
+print("El Heroe pertenece a la especie "+ Heroe.getEspecie())
+print("Tiene una altura de  ",Heroe.getAltura()," metros")
 
-print("El personaje se llama "+ nombreV)
-print("El personaje pertenece a la especie "+ especieV)
-print("Tiene una altura de  ",alturaV," metros")
+print("El Villano se llama "+ Villano.getNombre())
+print("El Villano pertenece a la especie "+ Villano.getEspecie())
+print("Tiene una altura de  ",Villano.getAltura()," metros")
 
 #Metodos
 Heroe.correr(True)
