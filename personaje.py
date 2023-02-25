@@ -1,8 +1,10 @@
 class Personaje:
     #atributos
-    especie="Humano"
-    nombre="Master Chief"
-    altura= 2.70
+    def __init__(self,esp,nom,alt):
+        self.especie=esp
+        self.nombre=nom
+        self.altura=alt
+   
     
     #metodos
     def correr(self,status):
@@ -15,4 +17,5 @@ class Personaje:
     def RecargarArma(self,municiones):
         cargador=10
         cargador=cargador+ municiones
-        print("El arma recargada tiene "+ cargador+ " balas")
+        print("El arma recargada tiene ", cargador, " balas")
+        
