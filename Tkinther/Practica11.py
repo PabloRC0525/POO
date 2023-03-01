@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
 #5 agregar funcion de mensaje
 def mostrarmensaje():
     messagebox.showinfo("Informacion","Te informo que aqui todo esta peor que al igual que ella mi voluntad tambien murio")
@@ -40,3 +41,6 @@ botonVerde=Button(seccion3,text="Boton verde",bg="#255748",fg="white",command=ag
 botonVerde.pack()
 #Metodo para la ejecucion
 ventana.mainloop()
+
+entry = ttk.Entry()
+entry.place(x=300, y=300)
