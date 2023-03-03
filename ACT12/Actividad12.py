@@ -2,10 +2,16 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 def validar():
-    if correo=="121038827@upq.edu.mx" and contraseña=="upq1234":
-        messagebox.showinfo("Correcto","Sus datos son correctos")
+    word1 = corr.get()
+    word2 = passw.get()
+
+    if word1 == "121038827@upq.edu.mx" and word2 == "upq1234":
+        messagebox.showinfo("Correcto","Se ha iniciado sesion correctamente")
+    elif word1 == "" or word2 == "":
+         messagebox.showerror("Error","Uno o más campos están vacios")
     else:
-        messagebox.showerror("Error", "Correo o contraseña incorrectos")
+        messagebox.showerror("Error","Usuario o contraseña incorrectos")
+
 
 ventana = Tk()
 ventana.title("Iniciar sesion")
@@ -23,7 +29,7 @@ corr.place(x=200,y=50)
 ip = Label(ventana, text="Ingrese su contraseña:", bg="green")
 ip.place(x=50,y=80)
 
-passw = ttk.Entry(width= 30)
+passw = ttk.Entry(width= 30,show="*")
 passw.place(x=200,y=80)
 
 Validar=Button(seccion1,text="Validar",bg="#255748",fg="white",command=validar)
