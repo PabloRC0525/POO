@@ -32,6 +32,6 @@ ip.place(x=50,y=80)
 passw = ttk.Entry(width= 30,show="*")
 passw.place(x=200,y=80)
 
-Validar=Button(seccion1,text="Validar",bg="#255748",fg="white",command=validar)
-Validar.pack()
+BotonValidar=Button(seccion1,text="Validar",bg="#255748",fg="white",command=validar)
+BotonValidar.pack()
 ventana.mainloop()
