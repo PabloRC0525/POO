@@ -10,7 +10,17 @@ controlador = ControladorDB()
 
 def ejecutaInsert():
     controlador.guardarUsuario(varNom.get(),varCorr.get(),varPass.get())
+#Metodo que usa mi obj controlador para buscar un usuario
+def ejecutaSelect():
+    rsUsu= controlador.consultarUsuario(varBus.get())
+    for usu in rsUsu:
+        cadena= str(usu[0])+" "+usu[1]+" "+usu[2]+" "+str(usu[3])
+    textBus.config(state='normal')  # Configuración del estado del widget Text
+    textBus.delete(1.0, 'end')  # Limpia el contenido del widget Text
+    textBus.insert('end', cadena)  # Inserta la cadena en el widget Text
+    textBus.config(state='disabled')  # Restaura el estado del widget Text a 'disabled'
 
+    
 ventana = Tk()
 ventana.title("CRUD de usuarios")
 ventana.geometry("500x300")
@@ -36,6 +46,19 @@ lblPass = Label(pestaña1,text="Contraseña: ").pack()
 txtPass = Entry(pestaña1,textvariable=varPass).pack()
 
 btnGuard = Button(pestaña1,text="Guardar usuario",command = ejecutaInsert).pack()
+
+#Pestaña 2: Buscar usuario
+titulo2 = Label(pestaña2,text="Buscar usuario:",fg ="green",font=("Modern",18)).pack()
+
+varBus=tk.StringVar()
+lblid= Label(pestaña2,text="Identificador de usuario:")
+txtid= Entry(pestaña2,textvariable=varBus).pack()
+btnBusqueda= Button(pestaña2,text="Buscar",command=ejecutaSelect).pack()
+
+subBus= Label(pestaña2,text= "Registrado:",fg="blue",font=("Modern",15)).pack()
+textBus = tk.Text(pestaña2, height=5, width=52)
+textBus.pack() 
+
 
 panel.add(pestaña1,text="Formulario usuarios")
 panel.add(pestaña2,text="Buscar usuario")

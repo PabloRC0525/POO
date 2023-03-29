@@ -46,3 +46,23 @@ class ControladorDB:
         print(conHa)
         #regresamos la contraseña encriptada
         return conHa
+    def consultarUsuario(self,id):
+        #1. realizar conexion DB
+        conx = self.conexionDB()
+        #2. verificar que el id vacio
+        if(id==""):
+            messagebox.showwarning("Cuidado","Escribe un identificador")
+        else:
+            #3. Ejecutar la consulta
+            try:
+                #4. Preparamos lo necesario
+                cursor=conx.cursor()
+                sqlselect= "select * from tbRegistrados where id ="+id
+                #5. Ejecutamos y cerramos conexion
+                cursor.execute(sqlselect)
+                RSUsuario = cursor.fetchall()
+                conx.close()
+                return RSUsuario
+                
+            except sqlite3.OperationalError:
+                print("Error de consulta")
