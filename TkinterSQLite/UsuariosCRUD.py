@@ -15,10 +15,14 @@ def ejecutaSelect():
     rsUsu= controlador.consultarUsuario(varBus.get())
     for usu in rsUsu:
         cadena= str(usu[0])+" "+usu[1]+" "+usu[2]+" "+str(usu[3])
-    textBus.config(state='normal')  # Configuración del estado del widget Text
-    textBus.delete(1.0, 'end')  # Limpia el contenido del widget Text
-    textBus.insert('end', cadena)  # Inserta la cadena en el widget Text
-    textBus.config(state='disabled')  # Restaura el estado del widget Text a 'disabled'
+
+    if(rsUsu): 
+        textBus.config(state='normal')  # Configuración del estado del widget Text
+        textBus.delete(1.0, 'end')  # Limpia el contenido del widget Text
+        textBus.insert('end', cadena)  # Inserta la cadena en el widget Text
+        textBus.config(state='disabled')  # Restaura el estado del widget Text a 'disabled'
+    else:
+        messagebox.showerror("Error","El usuario no existe en la base de datos")
 
     
 ventana = Tk()
