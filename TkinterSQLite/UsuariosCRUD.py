@@ -23,7 +23,14 @@ def ejecutaSelect():
         textBus.config(state='disabled')  # Restaura el estado del widget Text a 'disabled'
     else:
         messagebox.showerror("Error","El usuario no existe en la base de datos")
-
+def ejecutaconsulta():
+    # Obtiene los usuarios de la base de datos
+    rUsu= controlador.consulta()
+    # Borra los datos existentes en la tabla
+    tabla.delete(*tabla.get_children())
+    # Inserta los nuevos datos en la tabla
+    for usu in rUsu:
+        tabla.insert('', 'end', text=usu[0], values=(usu[1], usu[2], usu[3]))
     
 ventana = Tk()
 ventana.title("CRUD de usuarios")
@@ -63,6 +70,22 @@ subBus= Label(pestaña2,text= "Registrado:",fg="blue",font=("Modern",15)).pack()
 textBus = tk.Text(pestaña2, height=5, width=52)
 textBus.pack() 
 
+#Pestaña 3: Consultar usuarios
+
+subUS= Label(pestaña3,text= "Usuarios:",fg="blue",font=("Modern",15)).pack()
+tabla = ttk.Treeview(pestaña3)
+tabla['columns'] = ('nombre', 'correo', 'contraseña')
+tabla.column('#0', width=50, minwidth=50)
+tabla.column('nombre', width=120, minwidth=120)
+tabla.column('correo', width=150, minwidth=150)
+tabla.column('contraseña', width=100, minwidth=100)
+tabla.heading('#0', text='ID', anchor=tk.CENTER)
+tabla.heading('nombre', text='Nombre', anchor=tk.CENTER)
+tabla.heading('correo', text='Correo', anchor=tk.CENTER)
+tabla.heading('contraseña', text='Contraseña', anchor=tk.CENTER)
+tabla.pack() 
+
+Consultar= Button(pestaña3,text="Consultar",command=ejecutaconsulta).pack()
 
 panel.add(pestaña1,text="Formulario usuarios")
 panel.add(pestaña2,text="Buscar usuario")

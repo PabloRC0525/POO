@@ -66,3 +66,18 @@ class ControladorDB:
                 
             except sqlite3.OperationalError:
                 print("Error de consulta")
+    def consulta(self):
+        #1. realizar conexion DB
+        conx = self.conexionDB()
+        try:
+            #4. Preparamos lo necesario
+            cursor=conx.cursor()
+            sqlselect= "select * from tbRegistrados"
+            #5. Ejecutamos y cerramos conexion
+            cursor.execute(sqlselect)
+            RSUsuarios = cursor.fetchall()
+            conx.close()
+            return RSUsuarios
+                
+        except sqlite3.OperationalError:
+            print("Error de consulta")
