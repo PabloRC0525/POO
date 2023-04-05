@@ -46,6 +46,7 @@ class ControladorDB:
         print(conHa)
         #regresamos la contraseña encriptada
         return conHa
+    
     def consultarUsuario(self,id):
         #1. realizar conexion DB
         conx = self.conexionDB()
@@ -81,3 +82,43 @@ class ControladorDB:
                 
         except sqlite3.OperationalError:
             print("Error de consulta")
+            
+    def actualizar(self, id,nom,corr,con):
+        conx = self.conexionDB()
+        # 2. Validar vacios
+        if(id==""):
+            messagebox.showwarning("Error","Ingresa un ID")
+        else:
+            if nom == "" or corr == "" or con == "":
+                messagebox.showwarning("Aguas!!", "Formulario incompleto")
+                conx.close()
+            else:
+                try:
+                    cursor = conx.cursor()
+                    conH = self.ecriptarContra(con)
+                    datos = (nom, corr, conH, id)
+                    sqlUpdate = "UPDATE tbRegistrados SET nombre=?, correo=?, contra=? WHERE id=?"
+                    cursor.execute(sqlUpdate, datos)
+                    conx.commit()
+                    conx.close()
+                    messagebox.showinfo("Exito", "Usuario actualizado exitosamente")
+                except sqlite3.OperationalError:
+                    print("Error de actualización")
+    
+    def eliminar(self, id):
+        conx = self.conexionDB()
+        # 2. Validar vacios
+        if(id==""):
+            messagebox.showwarning("Error","Ingresa un ID")
+        else:
+            try:
+                cursor = conx.cursor()
+                sqldelete = "DELETE FROM tbRegistrados WHERE id=?"
+                cursor.execute(sqldelete, id)
+                sqlupdate = "UPDATE tbRegistrados SET id=id-1 WHERE id > ?"
+                cursor.execute(sqlupdate, id)
+                conx.commit()
+                conx.close()
+                messagebox.showinfo("Exito", "Usuario eliminado exitosamente")
+            except sqlite3.OperationalError:
+                    print("Error al eliminar")

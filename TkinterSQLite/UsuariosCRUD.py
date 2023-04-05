@@ -11,6 +11,7 @@ controlador = ControladorDB()
 def ejecutaInsert():
     controlador.guardarUsuario(varNom.get(),varCorr.get(),varPass.get())
 #Metodo que usa mi obj controlador para buscar un usuario
+
 def ejecutaSelect():
     rsUsu= controlador.consultarUsuario(varBus.get())
     for usu in rsUsu:
@@ -23,6 +24,7 @@ def ejecutaSelect():
         textBus.config(state='disabled')  # Restaura el estado del widget Text a 'disabled'
     else:
         messagebox.showerror("Error","El usuario no existe en la base de datos")
+        
 def ejecutaconsulta():
     # Obtiene los usuarios de la base de datos
     rUsu= controlador.consulta()
@@ -31,6 +33,12 @@ def ejecutaconsulta():
     # Inserta los nuevos datos en la tabla
     for usu in rUsu:
         tabla.insert('', 'end', text=usu[0], values=(usu[1], usu[2], usu[3]))
+        
+def ejecutaACT(varNomAE, varCorrAE, varPassAE):
+    controlador.actualizar(varActElim.get(),varNomAE.get(), varCorrAE.get(), varPassAE.get())
+    
+def ejecutadelete():
+    controlador.eliminar(varActElim.get())
     
 ventana = Tk()
 ventana.title("CRUD de usuarios")
@@ -86,6 +94,57 @@ tabla.heading('contraseña', text='Contraseña', anchor=tk.CENTER)
 tabla.pack() 
 
 Consultar= Button(pestaña3,text="Consultar",command=ejecutaconsulta).pack()
+
+#Pestaña 4: Actualizar y eliminar
+def ACT():
+    global widgets_ACT # Declarar una variable global para almacenar las referencias de los widgets creados
+    if id=="":
+        messagebox.showerror("Error","Ingrese un ID")
+    else:
+        varNomAE = tk.StringVar()
+        lblNomAE = Label(pestaña4,text="Nuevo nombre: ")
+        lblNomAE.pack()
+        txtNomAE = Entry(pestaña4,textvariable=varNomAE)
+        txtNomAE.pack()
+
+        varCorrAE = tk.StringVar()
+        lblCorrAE = Label(pestaña4,text="Nuevo correo: ")
+        lblCorrAE.pack()
+        txtCorrAE = Entry(pestaña4,textvariable=varCorrAE)
+        txtCorrAE.pack()
+
+        varPassAE = tk.StringVar()
+        lblPassAE = Label(pestaña4,text="Nueva contraseña: ")
+        lblPassAE.pack()
+        txtPassAE = Entry(pestaña4,textvariable=varPassAE)
+        txtPassAE.pack()
+
+        btnACT = Button(pestaña4,text="Actualizar usuario", command=lambda: ejecutaACT(varNomAE, varCorrAE, varPassAE))
+        btnACT.pack()
+        
+        # Almacenar las referencias de los widgets creados
+        widgets_ACT = [lblNomAE, txtNomAE, lblCorrAE, txtCorrAE, lblPassAE, txtPassAE, btnActualiza]
+        btnActualiza.destroy()
+    
+
+titulo3 = Label(pestaña4,text="Actualizar y Eliminar Usuario:",fg ="purple",font=("Modern",18))
+titulo3.pack()
+
+varActElim = tk.StringVar()
+lblidAE = Label(pestaña4,text="Identificador de usuario:")
+lblidAE.pack()
+txtidAE = Entry(pestaña4,textvariable=varActElim)
+txtidAE.pack()
+
+btnActualiza = Button(pestaña4,text="Actualizar usuario", command=ACT)
+btnActualiza.pack()
+
+btnElimina = Button(pestaña4,text="Eliminar usuario", command=ejecutadelete)
+btnElimina.pack()
+
+mensajeAE = tk.StringVar()
+lblMensajeAE = Label(pestaña4, textvariable=mensajeAE)
+lblMensajeAE.pack()
 
 panel.add(pestaña1,text="Formulario usuarios")
 panel.add(pestaña2,text="Buscar usuario")
