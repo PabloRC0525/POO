@@ -67,6 +67,7 @@ class ControladorDB:
                 
             except sqlite3.OperationalError:
                 print("Error de consulta")
+                
     def consulta(self):
         #1. realizar conexion DB
         conx = self.conexionDB()
